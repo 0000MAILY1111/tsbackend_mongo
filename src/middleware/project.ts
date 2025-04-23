@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import Project, { IProject } from '../models/Project';
 
-
 declare global {
     namespace Express {
         interface Request {
             project: IProject
         }
-        
     }
 }
 export async function ProjectExists ( req: Request, res: Response, next: NextFunction) {
@@ -23,8 +21,6 @@ export async function ProjectExists ( req: Request, res: Response, next: NextFun
 
     } catch (error) {
         res.status (500).json({error : "Error en el servidor"});
-
-
     }
 
 }

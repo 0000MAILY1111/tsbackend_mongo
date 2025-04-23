@@ -5,6 +5,10 @@ export class ProjectController {
 
     static createProject = async (req: Request, res: Response) => {
             const project = new Project (req.body);
+            if ( true){
+                const error = new Error("proyecto no encontrado");
+                res.status(404).json({error : error.message});
+            }
             try {
                 await project.save();
                 res.send("proyecto creado correctamente");
@@ -28,10 +32,7 @@ export class ProjectController {
         const {id} = req.params
         try {
             const project = (await Project.findById(id)).populated("tasks");
-            if ( !project){
-                const error = new Error("proyecto no encontrado");
-                res.status(404).json({error : error.message});
-            }
+            
             res.json(project);
         }catch (error) {
             console.log(error);
@@ -42,10 +43,7 @@ export class ProjectController {
         const {id} = req.params
         try {
             const project = await Project.findByIdAndUpdate (id, req.body);
-            if ( !project){
-                const error = new Error("proyecto no encontrado");
-                res.status(404).json({error : error.message});
-            }
+            
             project.projectName = req.body.projectName;
             project.clientName = req.body.clientName;
             project.description = req.body.description;
@@ -68,3 +66,5 @@ export class ProjectController {
     }
 
 }
+
+export default ProjectController;

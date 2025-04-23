@@ -2,13 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import Project, {  } from '../models/Project';
 import Task, { Itask } from '../models/Task';
 
-
 declare global {
     namespace Express {
         interface Request {
             task: Itask
         }
-        
     }
 }
 export async function TaskExists ( req: Request, res: Response, next: NextFunction) {
@@ -24,10 +22,7 @@ export async function TaskExists ( req: Request, res: Response, next: NextFuncti
 
     } catch (error) {
         res.status (500).json({error : "Error en el servidor"});
-
-
     }
-
 }
 
 export async function taskBelongsToProject ( req: Request, res: Response, next: NextFunction) {
@@ -47,8 +42,5 @@ export async function taskBelongsToProject ( req: Request, res: Response, next: 
 
     } catch (error) {
         res.status (500).json({error : "Error en el servidor"});
-
-
     }
-
 }

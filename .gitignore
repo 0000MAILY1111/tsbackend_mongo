@@ -39,7 +39,7 @@ error.log
 # Archivos de sistema
 Thumbs.db
 .git/
-
+.env 
 # Docker 
 docker-compose.override.yml
 

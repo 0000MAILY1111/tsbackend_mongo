@@ -10,7 +10,7 @@ export class TaskController {
         try {
             const task = new Task(req.body);
             task.project = req.project.id
-            req.project.tasks.push(task.id)
+            req.project.tasks.push (task.id)
             await Promise.allSettled([task.save(), req.project.save()])
             res.send("Tarea creada correctamente")
         } catch (error) {
@@ -47,10 +47,17 @@ export class TaskController {
     }
     static deleteTask = async (req: Request, res: Response) => {
         try {
-            req.project.tasks =  req.project.tasks.filter ( task => task.toString () !== req.task.id.toString())
-            await Promise.allSettled([req.task.deleteOne(), req.project.save()])
-            res.send ("Tarea actualizada correctamente")
+            if (req.project && req.project.tasks && req.task) {
+                req.project.tasks = req.project.tasks.filter(task => 
+                    task.toString() !== req.task!.id.toString()
+                );
+                await Promise.allSettled([req.task.deleteOne(), req.project.save()]);
+                res.send("Tarea eliminada correctamente");
+            } else {
+                res.status(400).json({ error: "Datos de proyecto o tarea incompletos" });
+            }
         } catch (error) {
+            console.error(error);
             res.status(500).json({ error: "Error en el servidor" });
         }
     }
@@ -68,3 +75,5 @@ export class TaskController {
 
 
 }
+
+export default TaskController;

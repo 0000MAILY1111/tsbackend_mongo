@@ -1,7 +1,7 @@
 import mongoose, {Schema, Document, Types, PopulatedDoc }  from "mongoose";
 import Project from "./Project";
 
-const tasksStatus = {
+const taskStatus = {
     PENDING : "pending",
     ON_HOLD : "onHold",
     IN_PROGRESS : "inProgress",
@@ -9,7 +9,7 @@ const tasksStatus = {
     COMPLETE : "completed"
 } as const   //no se puede modificar unicamente se lee estos valors 
 
-export type TaskStatus =  typeof tasksStatus [keyof typeof tasksStatus]
+export type TaskStatus =  typeof taskStatus [keyof typeof taskStatus]
 ///aqui taskstatus acepta un solo valor de esos los proporicionado s
 
 export interface Itask extends Document {
@@ -31,7 +31,6 @@ export const TaskShema : Schema = new Schema ({
         require : true
     },
     //cada documento debe tern un proyect
-    ///creame el documento con el nombre de , proyect, cada tarea tiene la informacion del proyecto almacenado . hace un arrglo con todas lastareas 
 
     project : {
         type: Types.ObjectId, 
@@ -39,13 +38,12 @@ export const TaskShema : Schema = new Schema ({
     },
     status : {
         type : String,
-        enum : Object.values (tasksStatus),
-        default : tasksStatus.PENDING
+        enum : Object.values (taskStatus),
+        default : taskStatus.PENDING
         ///para convertrilo en un valor que vaya a ser leido 
     }
-}, {timestamps : true } 
-)
+   }, {timestamps: true} )
+
 
 const Task = mongoose.model<Itask>("Task", TaskShema)
-
 export default Task 

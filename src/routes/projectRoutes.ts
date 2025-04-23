@@ -1,26 +1,26 @@
 import { Router } from "express";
+import { body, param } from "express-validator";
 
 import { ProjectController } from "../controllers/ProjectControllers";
-import { body, param } from "express-validator";
-import { handleInputErrors } from "../middleware/validation";
-import Project from "../models/Project";
 import { TaskController } from "../controllers/TasksControllers";
+
+import { handleInputErrors } from "../middleware/validation";
 import { ProjectExists } from "../middleware/project";
 import { taskBelongsToProject } from "../middleware/task";
 
+import Project from "../models/Project";
 
 const router = Router();
-
 router.param ("projectId", ProjectExists)
 
 
 router.post("/",
     body('projectName')
-        .notEmpty().withMessage('El nombre del proyecto es requerido'),
+        .notEmpty().withMessage('El nombre del Proyecto es requerido'),
     body('clientName')
-        .notEmpty().withMessage('El nombre del cliente es requerido'),
+        .notEmpty().withMessage('El nombre del Cliente es requerido'),
     body('description')
-        .notEmpty().withMessage('La descripción del proyecto es requerida'),
+        .notEmpty().withMessage('La descripción del Proyecto es requerida'),
     handleInputErrors,
     ProjectController.createProject
 );
@@ -72,7 +72,6 @@ router.get ("/ :taskId/tasks",
     TaskController.getProjectTasks
 )
 
-
 router.get ("/ :projectId/tasks/:taskId",
     param ("taskId").isMongoId().withMessage("El id de la tarea no es valido"),
     handleInputErrors,
@@ -99,9 +98,6 @@ router.post ("/:projectId/tasks/:taskId/status",
     body("status")
     .notEmpty().withMessage("El estado de la tarea es requerido"),
     handleInputErrors,
-
-
-
 )
 
 export default router;
