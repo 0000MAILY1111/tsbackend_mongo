@@ -1,18 +1,14 @@
 import { Router } from "express";
 import { body, param } from "express-validator";
-
 import { ProjectController } from "../controllers/ProjectControllers";
 import { TaskController } from "../controllers/TasksControllers";
-
 import { handleInputErrors } from "../middleware/validation";
 import { ProjectExists } from "../middleware/project";
 import { taskBelongsToProject } from "../middleware/task";
-
 import Project from "../models/Project";
 
 const router = Router();
 router.param ("projectId", ProjectExists)
-
 
 router.post("/",
     body('projectName')

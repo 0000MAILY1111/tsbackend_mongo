@@ -2,11 +2,8 @@ import type { Request, Response } from "express";
 import Project from "../models/Project";
 import Task from "../models/Task";
 
-
-
 export class TaskController {
     static createProject = async (req: Request, res: Response) => {
-
         try {
             const task = new Task(req.body);
             task.project = req.project.id
@@ -70,10 +67,6 @@ export class TaskController {
         }catch (error) {
             res.status(500).json({ error: "Error en el servidor" });
         }
-
     }
-
-
 }
-
 export default TaskController;

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "dev:api": "nodemon --exec ts-node src/index.ts --api "
   },
   "keywords": [],
   "author": "",
@@ -19,8 +20,11 @@
     "nodemailer": "^6.10.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/chart.js": "^2.9.41",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/nodemailer": "^6.4.17",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"

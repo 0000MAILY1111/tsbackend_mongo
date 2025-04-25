@@ -1,11 +1,24 @@
-import server from './server';
-import colors from 'colors';
+import express from 'express';
+import dotenv from 'dotenv';
+import { connectDB } from './config/database/db';
+import { corsConfig } from './config/cors';
+import cors from 'cors';
+import path from 'path';
 
-const port = process.env.PORT || 3000;
+dotenv.config(); 
+connectDB(); 
+const app = express();  
+//app.use ( cors (corsConfig))
 
-server.listen(port, () => {
-  console.log( colors.cyan.bold ( `REST API funcionando en el puerto ${port}`))
+app.use(express.json());
+// Servir archivos estáticos desde la carpeta 'public'  //esto es para el frontend
+//app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'views/resources')));
 
+const PORT: number = parseInt(process.env.PORT || '4000', 10);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
 });
 
 
+export default app;

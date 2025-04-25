@@ -14,7 +14,7 @@ app.use(express.json());
 //app.use (cors (corsConfig)); // Configuración de CORS , si no se soluciono el error de cors comentar la linea
 
 
-const PORT: number = parseInt(process.env.PORT || '3000', 10);
+const PORT: number = parseInt(process.env.PORT || '3001', 10);
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
